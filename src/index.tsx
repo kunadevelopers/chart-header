@@ -1,25 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class ChartHeaderController {
+import ChartHeaderComponent from './ChartHeaderComponent';
+import CHController from './chController';
 
-}
-
-export function create(containerSelector: string): ChartHeaderController {
+export function create(containerSelector: string): CHController {
     const element = document.querySelector(containerSelector);
 
     ReactDOM.render(
-        <div>Some text</div>,
+        <ChartHeaderComponent />,
         element,
     );
 
-    const controller = new ChartHeaderController();
-
-    return controller;
+    return new CHController();
 }
 
 type KunaChartHeader = {
-    create(containerSelector: string): ChartHeaderController;
+    create(containerSelector: string): CHController;
 }
 
 export default KunaChartHeader;
