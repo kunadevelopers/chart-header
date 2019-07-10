@@ -1,9 +1,16 @@
 import React from 'react';
+import { Provider as MobxProvider } from 'mobx-react';
+import KCHController from '../kchController';
+import MainComponent from './MainComponent';
 
-export default class ChartHeaderComponent extends React.Component {
-    public render(): JSX.Element {
-        return (
-            <div>Hello world!</div>
-        );
-    }
+type ChartHeaderProps = {
+    kchStore: KCHController;
+}
+
+export default function ChartHeaderComponent(props: ChartHeaderProps) {
+    return (
+        <MobxProvider kchStore={props.kchStore}>
+            <MainComponent />
+        </MobxProvider>
+    );
 }

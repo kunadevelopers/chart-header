@@ -24,8 +24,12 @@ export default {
         }),
         typeScript({ tsconfig: 'tsconfig.json' }),
         nodeResolve({ jsnext: true, main: true }),
-        commonJs(),
+        commonJs({
+            include: [
+                'node_modules/**',
+            ],
+        }),
         sizeSnapshot(),
-        !isDevelopmentEnv && terser(),
+        !isDevelopmentEnv && terser()
     ],
 };
