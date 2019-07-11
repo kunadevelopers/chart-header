@@ -1,3 +1,47 @@
 .kch-body {
+    font-family: "TT Norms", Helvetica, Arial, sans-serif;
+    font-size: 16px;
 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0;
+    padding: 0 20px;
+
+    height: 50px;
+    width: 100%;
+    background-color: #F5F7F8;
+    color: #000000;
+}
+
+.kch-symbol-section, .kch-unit-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.kch-unit, .kch-unit-title, .kch-unit-value {
+    margin: 0;
+    padding: 0;
+}
+
+.kch-unit {
+
+}
+
+.kch-unit + .kch-unit {
+    margin-left: 24px;
+}
+
+.kch-unit-title {
+    text-align: right;
+    font-size: 10px;
+    color: #93a9c3;
+    margin-bottom: 3px;
+}
+
+.kch-unit-value {
+    font-size: 14px;
 }

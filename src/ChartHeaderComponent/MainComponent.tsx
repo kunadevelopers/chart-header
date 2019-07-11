@@ -18,22 +18,24 @@ class MainComponent extends React.Component<MainComponentProps> {
         const direction = kchStore.change24h > 0 ? 'up' : 'down';
 
         return (
-            <div>
-                <div>
-                    {kchStore.baseAsset || '---'}/{kchStore.quoteAsset || '---'}
+            <div className="kch-body">
+                <div className="kch-symbol-section">
+                    <div>
+                        {kchStore.baseAsset || '---'}/{kchStore.quoteAsset || '---'}
+                    </div>
+
+                    <PriceContainer
+                        lastPrice={kchStore.lastPrice || 0}
+                        priceFormat={priceFormat}
+                        usdRate={kchStore.usdRate}
+                        direction={direction}
+                    />
                 </div>
 
-                <PriceContainer
-                    lastPrice={kchStore.lastPrice || 0}
-                    priceFormat={priceFormat}
-                    usdRate={kchStore.usdRate}
-                    direction={direction}
-                />
-
-                <div>
+                <div className="kch-unit-section">
                     <Unit title="Change">
                         {kchStore.change24h
-                            ? numeral(kchStore.change24h).format('0.[00]%')
+                            ? numeral(kchStore.change24h).format('+0.[00]%')
                             : '---'
                         }
                     </Unit>
@@ -55,8 +57,7 @@ class MainComponent extends React.Component<MainComponentProps> {
                     <Unit title="24H Volume">
                         {
                             kchStore.volume24h
-                                ? `${numeral(kchStore.volume24h).
-                                    format(volumeFormat)} ${kchStore.baseAsset}`
+                                ? `${numeral(kchStore.volume24h).format(volumeFormat)} ${kchStore.baseAsset}`
                                 : '---'
                         }
 

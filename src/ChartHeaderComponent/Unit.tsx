@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 type UnitProps = {
     title: React.ReactNode;
@@ -8,9 +9,11 @@ type UnitProps = {
 
 export default function Unit(props: UnitProps): JSX.Element {
     return (
-        <dl>
-            <dt>{props.title}</dt>
-            <dd className={props.contentClassName}>{props.children}</dd>
+        <dl className="kch-unit">
+            <dt className="kch-unit-title">{props.title}</dt>
+            <dd className={cn('kch-unit-value', props.contentClassName)}>
+                {props.children}
+            </dd>
         </dl>
     );
 }
