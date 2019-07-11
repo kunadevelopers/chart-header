@@ -14,7 +14,25 @@
 </section>
 
 <script>
-    var chartHeader = KunaChartHeader.create('#kuna-chart-header', {});
+    var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
+        baseAsset: 'BTC',
+        quoteAsset: 'UAH',
+
+        lastPrice: 313329.19,
+        usdRate: 0.03903,
+
+        pricePrecision: 0,
+        volumePrecision: 4,
+
+        volume24h: 24.0281,
+        change24h: 0.0312,
+    });
+
+    setInterval(() => {
+        chartHeader.setData({
+            lastPrice: 280000 + Math.random() * 50000,
+        });
+    }, 1000);
 </script>
 
 </body>

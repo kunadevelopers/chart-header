@@ -5,7 +5,8 @@ import { configure } from 'mobx';
 import ChartHeaderComponent from './ChartHeaderComponent';
 import KCHController, { KCHOption } from './kchController';
 
-export function create(containerSelector: string, option: KCHOption): KCHController {
+export function create(
+    containerSelector: string, option: KCHOption): KCHController {
     configure({ enforceActions: 'observed' });
 
     const element = document.querySelector(containerSelector);
