@@ -1,9 +1,12 @@
 .kch-body {
+    outline: 0;
+    box-sizing: border-box;
     font-family: "TT Norms", Helvetica, Arial, sans-serif;
     font-size: 16px;
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 
@@ -16,7 +19,8 @@
     color: #000000;
 }
 
-.kch-symbol-section, .kch-unit-section {
+.kch-symbol-section,
+.kch-unit-section {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,7 +53,9 @@
     color: #93a9c3;
 }
 
-.kch-unit, .kch-unit-title, .kch-unit-value {
+.kch-unit,
+.kch-unit-title,
+.kch-unit-value {
     margin: 0;
     padding: 0;
 }
@@ -79,4 +85,27 @@
 
 .kch-value-down {
     color: rgb(253, 42, 71);
+}
+
+@media screen and (max-width: 768px) {
+    .kch-body {
+        height: auto;
+        padding: 20px;
+    }
+
+    .kch-symbol-section,
+    .kch-unit-section {
+        width: 100%;
+    }
+
+    .kch-unit-section {
+        margin-top: 20px;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .kch-body {
+        padding: 10px 20px;
+    }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import numeral from 'numeral';
+import BigNumber from 'bignumber.js';
 import { compose } from 'recompose';
 import { inject, observer } from 'mobx-react';
 import PriceContainer from './PriceContainer';
@@ -13,9 +13,12 @@ class MainComponent extends React.Component<MainComponentProps> {
     public render(): JSX.Element {
         const { kchStore } = this.props;
 
-        const priceFormat = `0,0[${'0'.repeat(kchStore.pricePrecision)}]`;
-        const volumeFormat = `0,0.[${'0'.repeat(kchStore.volumePrecision)}]`;
-        const direction = kchStore.change24h > 0 ? 'up' : 'down';
+        const { pricePrecision, volumePrecision } = kchStore;
+
+        const change24 = new BigNumber(kchStore.change24h);
+        const volume = new BigNumber(kchStore.volume24h);
+
+        const direction = change24.gt(0) ? 'up' : 'down';
 
         return (
             <div className="kch-body">
@@ -28,7 +31,7 @@ class MainComponent extends React.Component<MainComponentProps> {
 
                     <PriceContainer
                         lastPrice={kchStore.lastPrice || 0}
-                        priceFormat={priceFormat}
+                        pricePrecision={pricePrecision}
                         usdRate={kchStore.usdRate}
                         direction={direction}
                     />
@@ -37,30 +40,29 @@ class MainComponent extends React.Component<MainComponentProps> {
                 <div className="kch-unit-section">
                     <Unit title="Change" valueDirection={direction}>
                         {kchStore.change24h
-                            ? numeral(kchStore.change24h).format('+0.[00]%')
+                            ? new BigNumber(kchStore.change24h).toFormat(2) + '%'
                             : '---'
                         }
                     </Unit>
 
                     <Unit title="High">
                         {kchStore.high
-                            ? numeral(kchStore.high).format(priceFormat)
+                            ? new BigNumber(kchStore.high).toFormat(pricePrecision)
                             : '---'
                         }
                     </Unit>
 
                     <Unit title="Low">
                         {kchStore.low
-                            ? numeral(kchStore.low).format(priceFormat)
+                            ? new BigNumber(kchStore.low).toFormat(pricePrecision)
                             : '---'
                         }
                     </Unit>
 
                     <Unit title="24H Volume">
                         {
-                            kchStore.volume24h
-                                ? `${numeral(kchStore.volume24h).
-                                    format(volumeFormat)} ${kchStore.baseAsset}`
+                            volume.gt(0)
+                                ? `${volume.toFormat(volumePrecision)} ${kchStore.baseAsset}`
                                 : '---'
                         }
 

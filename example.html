@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta content='width=1024' name='viewport'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Kuna Chart Header example</title>
     <link href="css/kch-style.css" rel="stylesheet" media="all" />
     <script src="dist/kuna-chart-header.js"></script>
@@ -28,23 +28,26 @@
 
 <script>
     var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
-        baseAsset: 'BTC',
-        quoteAsset: 'UAH',
+        baseAsset: 'DREAM',
+        quoteAsset: 'BTC',
 
-        lastPrice: 313329.19,
-        usdRate: 0.03903,
+        lastPrice: 0.00000385,
+        usdRate: 12003,
 
-        pricePrecision: 0,
+        pricePrecision: 8,
         volumePrecision: 2,
+
+        high: 0.00000395,
+        low: 0.00000355,
 
         volume24h: 24.0281,
         change24h: -0.0312,
     });
 
     setInterval(() => {
-        chartHeader.setData({
-            lastPrice: 280000 + Math.random() * 50000,
-        });
+        // chartHeader.setData({
+        //     lastPrice: 280000 + Math.random() * 50000,
+        // });
     }, 1000);
 </script>
 

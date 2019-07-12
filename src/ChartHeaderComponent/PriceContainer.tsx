@@ -1,21 +1,19 @@
 import React from 'react';
 import cn from 'classnames';
-import numeral from 'numeral';
+import BigNumber from 'bignumber.js';
 
 type PriceProps = {
     lastPrice: number;
     usdRate?: number;
-    priceFormat?: string;
+    pricePrecision?: number;
     direction: 'up' | 'down';
 };
 
-const usdFormat = '0,0.[00]';
-
 export default function PriceContainer(props: PriceProps): JSX.Element {
-    const { lastPrice, usdRate, priceFormat = '0,0.[00]', direction } = props;
-    const price = numeral(lastPrice || 0);
+    const { lastPrice, usdRate, pricePrecision = 2, direction } = props;
+    const price = new BigNumber(lastPrice);
 
-    if (price.value() <= 0) {
+    if (price.lte(0)) {
         return <div>---</div>;
     }
 
@@ -27,11 +25,11 @@ export default function PriceContainer(props: PriceProps): JSX.Element {
     return (
         <div className="kch-price">
             <span className={cn(priceClasses)}>
-                {price.format(priceFormat)}
+                {price.toFormat(pricePrecision)}
             </span>
             {usdRate > 0 ? (
                 <span className="kch-price-estimate">
-                    ≈ {price.multiply(usdRate).format(usdFormat)} USD
+                    ≈ {price.times(usdRate).toFormat(2)} USD
                 </span>
             ) : undefined}
         </div>
