@@ -14,14 +14,16 @@ class MainComponent extends React.Component<MainComponentProps> {
         const { kchStore } = this.props;
 
         const priceFormat = `0,0[${'0'.repeat(kchStore.pricePrecision)}]`;
-        const volumeFormat = '0.[0000]';
+        const volumeFormat = `0,0.[${'0'.repeat(kchStore.volumePrecision)}]`;
         const direction = kchStore.change24h > 0 ? 'up' : 'down';
 
         return (
             <div className="kch-body">
                 <div className="kch-symbol-section">
-                    <div>
-                        {kchStore.baseAsset || '---'}/{kchStore.quoteAsset || '---'}
+                    <div className="kch-symbol">
+                        <span>{kchStore.baseAsset || '---'}</span>
+                        <span>/</span>
+                        <span>{kchStore.quoteAsset || '---'}</span>
                     </div>
 
                     <PriceContainer
@@ -33,7 +35,7 @@ class MainComponent extends React.Component<MainComponentProps> {
                 </div>
 
                 <div className="kch-unit-section">
-                    <Unit title="Change">
+                    <Unit title="Change" valueDirection={direction}>
                         {kchStore.change24h
                             ? numeral(kchStore.change24h).format('+0.[00]%')
                             : '---'
@@ -57,7 +59,8 @@ class MainComponent extends React.Component<MainComponentProps> {
                     <Unit title="24H Volume">
                         {
                             kchStore.volume24h
-                                ? `${numeral(kchStore.volume24h).format(volumeFormat)} ${kchStore.baseAsset}`
+                                ? `${numeral(kchStore.volume24h).
+                                    format(volumeFormat)} ${kchStore.baseAsset}`
                                 : '---'
                         }
 

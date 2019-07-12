@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import numeral from 'numeral';
 
 type PriceProps = {
@@ -18,11 +19,18 @@ export default function PriceContainer(props: PriceProps): JSX.Element {
         return <div>---</div>;
     }
 
+    const priceClasses = [
+        'kch-price-value',
+        direction === 'up' ? 'kch-value-up' : 'kch-value-down',
+    ];
+
     return (
-        <div>
-            <span>{price.format(priceFormat)}</span>
+        <div className="kch-price">
+            <span className={cn(priceClasses)}>
+                {price.format(priceFormat)}
+            </span>
             {usdRate > 0 ? (
-                <span>
+                <span className="kch-price-estimate">
                     ≈ {price.multiply(usdRate).format(usdFormat)} USD
                 </span>
             ) : undefined}

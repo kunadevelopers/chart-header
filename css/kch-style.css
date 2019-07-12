@@ -22,6 +22,33 @@
     align-items: center;
 }
 
+.kch-symbol {
+    margin-right: 16px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.kch-price {
+    display: flex;
+    align-items: center;
+}
+
+.kch-price-value {
+    display: block;
+
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.kch-price-estimate {
+    display: block;
+    margin-top: 2px;
+    line-height: 1.32;
+    font-size: 12px;
+    color: #93a9c3;
+}
+
 .kch-unit, .kch-unit-title, .kch-unit-value {
     margin: 0;
     padding: 0;
@@ -44,4 +71,12 @@
 
 .kch-unit-value {
     font-size: 14px;
+}
+
+.kch-value-up {
+    color: rgb(34, 207, 145);
+}
+
+.kch-value-down {
+    color: rgb(253, 42, 71);
 }
