@@ -39,22 +39,24 @@ class MainComponent extends React.Component<MainComponentProps> {
 
                 <div className="kch-unit-section">
                     <Unit title="Change" valueDirection={direction}>
-                        {kchStore.change24h
-                            ? new BigNumber(kchStore.change24h).toFormat(2) + '%'
+                        {typeof kchStore.change24h !== 'undefined'
+                            ? change24.times(100).toFormat(2) + '%'
                             : '---'
                         }
                     </Unit>
 
                     <Unit title="High">
                         {kchStore.high
-                            ? new BigNumber(kchStore.high).toFormat(pricePrecision)
+                            ? new BigNumber(kchStore.high).toFormat(
+                                pricePrecision)
                             : '---'
                         }
                     </Unit>
 
                     <Unit title="Low">
                         {kchStore.low
-                            ? new BigNumber(kchStore.low).toFormat(pricePrecision)
+                            ? new BigNumber(kchStore.low).toFormat(
+                                pricePrecision)
                             : '---'
                         }
                     </Unit>
@@ -62,7 +64,8 @@ class MainComponent extends React.Component<MainComponentProps> {
                     <Unit title="24H Volume">
                         {
                             volume.gt(0)
-                                ? `${volume.toFormat(volumePrecision)} ${kchStore.baseAsset}`
+                                ? `${volume.toFormat(
+                                volumePrecision)} ${kchStore.baseAsset}`
                                 : '---'
                         }
 
