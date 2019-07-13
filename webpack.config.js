@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
+const isLib = process.env.MODE === 'library';
 
 module.exports = {
     mode: isDev ? 'development' : 'production',
@@ -16,7 +17,7 @@ module.exports = {
         'kuna-chart-header': './index.tsx',
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, isLib ? 'lib' : 'dist'),
         filename: '[name].js',
         libraryTarget: 'umd',
         library: 'KunaChartHeader',

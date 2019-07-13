@@ -5,10 +5,13 @@
     "scripts": {
         "build": "npm run clean && npm run webpack",
         "build:prod": "npm run clean && npm run webpack:prod",
+        "build:lib": "npm run clean:lib && npm run webpack:lib",
         "webpack": "webpack-cli --progress",
         "webpack:prod": "NODE_ENV=production webpack-cli --progress",
+        "webpack:lib": "NODE_ENV=production MODE=library webpack-cli --progress",
         "watch": "rollup -cw",
-        "clean": "rm -rf ./dist ./lib ./lib-esm"
+        "clean": "rm -rf ./dist",
+        "clean:lib": "rm -rf ./lib"
     },
     "dependencies": {
         "bignumber.js": "9.0.0",
