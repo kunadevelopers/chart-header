@@ -19,9 +19,9 @@
                 fullscreen: false,
                 width: 1138,
                 height: 520,
-                symbol: 'ltcuah',
+                symbol: 'btcuah',
                 interval: '60',
-                container_id: 'tv_chart_container',
+                container_id: 'kuna-chart-container',
 
                 datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 30000),
                 library_path: 'charting_library/',
@@ -39,7 +39,7 @@
                 ],
                 enabled_features: [
                     'move_logo_to_main_pane',
-                    'save_chart_properties_to_local_storage'
+                    'save_chart_properties_to_local_storage',
                 ],
                 overrides: {
                     'mainSeriesProperties.style': 0,
@@ -84,7 +84,7 @@
                     { text: '1d', resolution: '5' },
                 ],
                 loading_screen: {
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
                 },
                 charts_storage_url: 'http://saveload.tradingview.com',
                 client_id: 'tradingview.com',
@@ -103,9 +103,48 @@
     </script>
 
 </head>
+<body style="display: flex; justify-content: center; height: 100vh; align-items: center;">
 
-<body style="margin:0 auto; display: flex; justify-content: center; height: 100vh; align-items: center;">
-<div id="tv_chart_container"></div>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    #kuna-chart-header {
+        width: 100%;
+        max-width: 1150px;
+        margin: 30px auto 0 auto;
+    }
+
+    #kuna-chart-container {
+        max-width: 1150px;
+        margin: 0 auto;
+    }
+</style>
+
+<section>
+    <div id="kuna-chart-header"></div>
+    <div id="kuna-chart-container"></div>
+</section>
+
+
+<script>
+    if (KunaChartHeader in window) {
+        var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
+            baseAsset: 'BTC',
+            quoteAsset: 'UAH',
+            lastPrice: 3703928,
+            usdRate: 0.031,
+            pricePrecision: 0,
+            volumePrecision: 5,
+            high: 3923400,
+            low: 3600000,
+            volume24h: 24.0281,
+            change24h: -0.0312,
+        });
+    }
+</script>
+
 </body>
-
 </html>
