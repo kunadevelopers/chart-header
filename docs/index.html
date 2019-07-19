@@ -1,55 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Kuna Chart Header example</title>
-    <link href="https://raw.githubusercontent.com/kunadevelopers/chart-header/master/css/kch-style.css" rel="stylesheet" media="all" />
-    <script src="https://raw.githubusercontent.com/kunadevelopers/chart-header/master/lib/kuna-chart-header.js"></script>
+
+    <title>TradingView Charting Library demo -- Mobile (white)</title>
+
+    <!-- Fix for iOS Safari zooming bug -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    <script type="text/javascript" src="/charting_library/charting_library.min.js"></script>
+    <script type="text/javascript" src="/charting_library/datafeeds/polyfills.js"></script>
+    <script type="text/javascript" src="/charting_library/datafeeds/kuna-datafeeds.bundle.js"></script>
+
+    <script type="text/javascript">
+
+        function initOnReady() {
+            var widget = new TradingView.widget({
+                fullscreen: false,
+                width: 1138,
+                height: 520,
+                symbol: 'ltcuah',
+                interval: '60',
+                container_id: 'tv_chart_container',
+
+                datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 30000),
+                library_path: 'charting_library/',
+                toolbar_bg: 'rgba(255, 255, 255, 1)',
+                enable_publishing: false,
+                allow_symbol_change: false,
+                disabled_features: [
+                    'header_symbol_search',
+                    'header_compare',
+                    'header_undo_redo',
+                    'hide_last_na_study_output',
+                    'timeframes_toolbar',
+                    'header_fullscreen_button',
+                    'volume_force_overlay',
+                ],
+                enabled_features: [
+                    'move_logo_to_main_pane',
+                    'save_chart_properties_to_local_storage'
+                ],
+                overrides: {
+                    'mainSeriesProperties.style': 0,
+                    'symbolWatermarkProperties.color': 'rgba(0, 0, 0, 0)',
+                    'volumePaneSize': 'medium',
+                    'timezone': 'Europe/Athens',
+                    'editorFontsList': ['Roboto'],
+                    'paneProperties.topMargin': 15,
+                    'paneProperties.bottomMargin': 5,
+                    'mainSeriesProperties.visible': true,
+                    'mainSeriesProperties.candleStyle.upColor': '#2E71F0',
+                    'mainSeriesProperties.candleStyle.downColor': '#FD2A47',
+                    'mainSeriesProperties.candleStyle.drawWick': true,
+                    'mainSeriesProperties.candleStyle.drawBorder': true,
+                    'mainSeriesProperties.candleStyle.borderColor': '#378658',
+                    'mainSeriesProperties.candleStyle.borderUpColor': '#2E71F0',
+                    'mainSeriesProperties.candleStyle.borderDownColor': '#FD2A47',
+                    'mainSeriesProperties.candleStyle.wickUpColor': '#2E71F0',
+                    'mainSeriesProperties.candleStyle.wickDownColor': '#FD2A47',
+                    'mainSeriesProperties.candleStyle.barColorsOnPrevClose': false,
+                    'paneProperties.background': '#ffffff',
+                    'scalesProperties.backgroundColor': '#ffffff',
+                    'mainSeriesProperties.lineStyle.color': '#2E71F0',
+                    'mainSeriesProperties.lineStyle.linestyle': 0,
+                    'mainSeriesProperties.lineStyle.linewidth': 1,
+                    'mainSeriesProperties.lineStyle.priceSource': 'close',
+                    'paneProperties.legendProperties.showStudyArguments': true,
+                    'paneProperties.legendProperties.showStudyTitles': true,
+                    'paneProperties.legendProperties.showStudyValues': true,
+                    'paneProperties.legendProperties.showSeriesTitle': true,
+                    'paneProperties.legendProperties.showSeriesOHLC': true,
+                    'mainSeriesProperties.areaStyle.color1': '#2E71F0',
+                    'mainSeriesProperties.areaStyle.color2': '#01F6F5',
+                    'mainSeriesProperties.areaStyle.linecolor': '#2E71F0',
+                    'mainSeriesProperties.areaStyle.linestyle': 0,
+                    'mainSeriesProperties.areaStyle.linewidth': 1,
+                    'mainSeriesProperties.areaStyle.priceSource': 'close',
+                },
+                debug: false,
+                time_frames: [
+                    { text: '3y', resolution: '1M' },
+                    { text: '1d', resolution: '5' },
+                ],
+                loading_screen: {
+                    backgroundColor: '#ffffff'
+                },
+                charts_storage_url: 'http://saveload.tradingview.com',
+                client_id: 'tradingview.com',
+                user_id: 'public_user',
+                studies: [
+                    'Volume@tv-basicstudies',
+                ],
+                favorites: {
+                    intervals: ['1', '5', '15', '30', '60', '4h', '1D', '3D'],
+                    chartTypes: [],
+                },
+            });
+        };
+
+        window.addEventListener('DOMContentLoaded', initOnReady, false);
+    </script>
+
 </head>
-<body>
 
-<section>
-    <div id="kuna-chart-header"></div>
-</section>
-
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-    }
-
-    #kuna-chart-header {
-        width: 100%;
-        max-width: 1150px;
-        margin: 30px auto 0 auto;
-    }
-</style>
-
-<script>
-    var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
-        baseAsset: 'BTC',
-        quoteAsset: 'UAH',
-
-        lastPrice: 3703928,
-        usdRate: 0.031,
-
-        pricePrecision: 0,
-        volumePrecision: 5,
-
-        high: 3923400,
-        low: 3600000,
-
-        volume24h: 24.0281,
-        change24h: -0.0312,
-    });
-
-    setInterval(() => {
-        // chartHeader.setData({
-        //     lastPrice: 280000 + Math.random() * 50000,
-        // });
-    }, 1000);
-</script>
-
+<body style="margin:0 auto; display: flex; justify-content: center; height: 100vh; align-items: center;">
+<div id="tv_chart_container"></div>
 </body>
+
 </html>
