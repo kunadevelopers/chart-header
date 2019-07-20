@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
+    <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+
     <script type="text/javascript" src="charting_library/charting_library.min.js"></script>
     <script type="text/javascript" src="charting_library/datafeeds/polyfills.js"></script>
     <script type="text/javascript" src="charting_library/datafeeds/kuna-datafeeds.bundle.js"></script>
@@ -17,15 +19,25 @@
     <script type="text/javascript">
 
         function initOnReady() {
+            const symbol = 'btcuah';
+            window.pusher = new Pusher('4b6a8b2c758be4e58868', {
+                encrypted: true,
+                wsHost: 'pusher.kuna.io',
+                wsPort: '443',
+                wssPort: '443',
+                enabledTransports: ['ws', 'flash'],
+            });
+
+            window.pusher.subscribe('market-' + symbol + '-global');
+
             var widget = new TradingView.widget({
                 fullscreen: false,
-                width: 1138,
-                height: 520,
-                symbol: 'btcuah',
+                autosize: true,
+                symbol: symbol,
                 interval: '60',
-                container_id: 'kuna-chart-container',
+                container_id: 'tv_chart_container',
 
-                datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 30000),
+                datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 10000),
                 library_path: 'charting_library/',
                 toolbar_bg: 'rgba(255, 255, 255, 1)',
                 enable_publishing: false,
@@ -120,7 +132,9 @@
     }
 
     #kuna-chart-container {
+        width: 100%;
         max-width: 1150px;
+        height: 480px;
         margin: 0 auto;
     }
 </style>
@@ -134,6 +148,7 @@
 <script>
     if ('KunaChartHeader' in window) {
         var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
+            symbol: 'btcuah',
             baseAsset: 'BTC',
             quoteAsset: 'UAH',
             lastPrice: 3703928,
