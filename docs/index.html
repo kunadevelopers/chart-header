@@ -68,7 +68,7 @@
 
             datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 10000),
             library_path: 'charting_library/',
-            toolbar_bg: 'rgba(255, 255, 255, 1)',
+            toolbar_bg: 'rgba(255, 255, 255, 0.4)',
             enable_publishing: false,
             allow_symbol_change: false,
             disabled_features: [
@@ -103,8 +103,8 @@
                 'mainSeriesProperties.candleStyle.wickUpColor': '#2E71F0',
                 'mainSeriesProperties.candleStyle.wickDownColor': '#FD2A47',
                 'mainSeriesProperties.candleStyle.barColorsOnPrevClose': false,
-                'paneProperties.background': '#ffffff',
-                'scalesProperties.backgroundColor': '#ffffff',
+                'paneProperties.background': '#FFFFFF',
+                'scalesProperties.backgroundColor': '#FFFFFF',
                 'mainSeriesProperties.lineStyle.color': '#2E71F0',
                 'mainSeriesProperties.lineStyle.linestyle': 0,
                 'mainSeriesProperties.lineStyle.linewidth': 1,
@@ -127,7 +127,7 @@
                 { text: '1d', resolution: '5' },
             ],
             loading_screen: {
-                backgroundColor: '#ffffff',
+                backgroundColor: '#F5F7F8',
             },
             charts_storage_url: 'http://saveload.tradingview.com',
             client_id: 'tradingview.com',
@@ -146,9 +146,9 @@
                 symbol: 'btcuah',
                 baseAsset: 'BTC',
                 quoteAsset: 'UAH',
-                usdRate: 0.031,
+                usdRate: 0.0395,
                 pricePrecision: 0,
-                volumePrecision: 5,
+                volumePrecision: 2,
             });
         }
     };

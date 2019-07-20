@@ -1474,7 +1474,7 @@ input, textarea, .selectable {
   height: 100% !important;
 }
 .chart-page {
-  background: #e7ebee;
+    background: #F5F7F8;
 }
 html.theme-dark .chart-page{ background: #2f3241; }
 .chart-page .chart-container {
@@ -1556,7 +1556,7 @@ html.theme-dark .chart-page .chart-container.multiple.active:after{ border-color
   top: 0;
   left: 0;
   z-index: 150;
-  background: #ffffff;
+  background: #F5F7F8;
 }
 .loading-indicator img {
   position: absolute;
