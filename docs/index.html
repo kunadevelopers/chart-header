@@ -15,111 +15,9 @@
     <script type="text/javascript" src="charting_library/datafeeds/kuna-datafeeds.bundle.js"></script>
     <script src="js/kuna-chart-header.js"></script>
     <link href="css/kch-style.css" rel="stylesheet" media="all" />
-
-    <script type="text/javascript">
-
-        function initOnReady() {
-            const symbol = 'btcuah';
-            window.pusher = new Pusher('4b6a8b2c758be4e58868', {
-                encrypted: true,
-                wsHost: 'pusher.kuna.io',
-                wsPort: '443',
-                wssPort: '443',
-                enabledTransports: ['ws', 'flash'],
-            });
-
-            window.pusher.subscribe('market-' + symbol + '-global');
-
-            var widget = new TradingView.widget({
-                fullscreen: false,
-                autosize: true,
-                symbol: symbol,
-                interval: '60',
-                container_id: 'kuna-chart-container',
-                locale: 'ru',
-
-                datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 10000),
-                library_path: 'charting_library/',
-                toolbar_bg: 'rgba(255, 255, 255, 1)',
-                enable_publishing: false,
-                allow_symbol_change: false,
-                disabled_features: [
-                    'header_symbol_search',
-                    'header_compare',
-                    'header_undo_redo',
-                    'hide_last_na_study_output',
-                    'timeframes_toolbar',
-                    'header_fullscreen_button',
-                    'volume_force_overlay',
-                ],
-                enabled_features: [
-                    'move_logo_to_main_pane',
-                    'save_chart_properties_to_local_storage',
-                ],
-                overrides: {
-                    'mainSeriesProperties.style': 0,
-                    'symbolWatermarkProperties.color': 'rgba(0, 0, 0, 0)',
-                    'volumePaneSize': 'medium',
-                    'timezone': 'Europe/Athens',
-                    'editorFontsList': ['Roboto'],
-                    'paneProperties.topMargin': 15,
-                    'paneProperties.bottomMargin': 5,
-                    'mainSeriesProperties.visible': true,
-                    'mainSeriesProperties.candleStyle.upColor': '#2E71F0',
-                    'mainSeriesProperties.candleStyle.downColor': '#FD2A47',
-                    'mainSeriesProperties.candleStyle.drawWick': true,
-                    'mainSeriesProperties.candleStyle.drawBorder': true,
-                    'mainSeriesProperties.candleStyle.borderColor': '#378658',
-                    'mainSeriesProperties.candleStyle.borderUpColor': '#2E71F0',
-                    'mainSeriesProperties.candleStyle.borderDownColor': '#FD2A47',
-                    'mainSeriesProperties.candleStyle.wickUpColor': '#2E71F0',
-                    'mainSeriesProperties.candleStyle.wickDownColor': '#FD2A47',
-                    'mainSeriesProperties.candleStyle.barColorsOnPrevClose': false,
-                    'paneProperties.background': '#ffffff',
-                    'scalesProperties.backgroundColor': '#ffffff',
-                    'mainSeriesProperties.lineStyle.color': '#2E71F0',
-                    'mainSeriesProperties.lineStyle.linestyle': 0,
-                    'mainSeriesProperties.lineStyle.linewidth': 1,
-                    'mainSeriesProperties.lineStyle.priceSource': 'close',
-                    'paneProperties.legendProperties.showStudyArguments': true,
-                    'paneProperties.legendProperties.showStudyTitles': true,
-                    'paneProperties.legendProperties.showStudyValues': true,
-                    'paneProperties.legendProperties.showSeriesTitle': true,
-                    'paneProperties.legendProperties.showSeriesOHLC': true,
-                    'mainSeriesProperties.areaStyle.color1': '#2E71F0',
-                    'mainSeriesProperties.areaStyle.color2': '#01F6F5',
-                    'mainSeriesProperties.areaStyle.linecolor': '#2E71F0',
-                    'mainSeriesProperties.areaStyle.linestyle': 0,
-                    'mainSeriesProperties.areaStyle.linewidth': 1,
-                    'mainSeriesProperties.areaStyle.priceSource': 'close',
-                },
-                debug: false,
-                time_frames: [
-                    { text: '3y', resolution: '1M' },
-                    { text: '1d', resolution: '5' },
-                ],
-                loading_screen: {
-                    backgroundColor: '#ffffff',
-                },
-                charts_storage_url: 'http://saveload.tradingview.com',
-                client_id: 'tradingview.com',
-                user_id: 'public_user',
-                studies: [
-                    'Volume@tv-basicstudies',
-                ],
-                favorites: {
-                    intervals: ['1', '5', '15', '30', '60', '4h', '1D', '3D'],
-                    chartTypes: [],
-                },
-            });
-        };
-
-        window.addEventListener('DOMContentLoaded', initOnReady, false);
-    </script>
-
 </head>
-<body style="display: flex; justify-content: center; height: 100vh; align-items: center;">
 
+<body style="display: flex; justify-content: center; height: 100vh; align-items: center;">
 <style>
     body, html {
         margin: 0;
@@ -147,21 +45,114 @@
 
 
 <script>
-    if ('KunaChartHeader' in window) {
-        var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
-            symbol: 'btcuah',
-            baseAsset: 'BTC',
-            quoteAsset: 'UAH',
-            lastPrice: 3703928,
-            usdRate: 0.031,
-            pricePrecision: 0,
-            volumePrecision: 5,
-            high: 3923400,
-            low: 3600000,
-            volume24h: 24.0281,
-            change24h: -0.0312,
+    function initOnReady() {
+        const symbol = 'btcuah';
+        window.pusher = new Pusher('4b6a8b2c758be4e58868', {
+            encrypted: true,
+            wsHost: 'pusher.kuna.io',
+            wsPort: '443',
+            wssPort: '443',
+            enabledTransports: ['ws', 'flash'],
         });
-    }
+
+        window.pusher.subscribe('market-' + symbol + '-global');
+
+        var widget = new TradingView.widget({
+            fullscreen: false,
+            autosize: true,
+            symbol: symbol,
+            interval: '60',
+            container_id: 'kuna-chart-container',
+            locale: 'ru',
+
+            datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 10000),
+            library_path: 'charting_library/',
+            toolbar_bg: 'rgba(255, 255, 255, 1)',
+            enable_publishing: false,
+            allow_symbol_change: false,
+            disabled_features: [
+                'header_symbol_search',
+                'header_compare',
+                'header_undo_redo',
+                'hide_last_na_study_output',
+                'timeframes_toolbar',
+                'header_fullscreen_button',
+                'volume_force_overlay',
+            ],
+            enabled_features: [
+                'move_logo_to_main_pane',
+                'save_chart_properties_to_local_storage',
+            ],
+            overrides: {
+                'mainSeriesProperties.style': 0,
+                'symbolWatermarkProperties.color': 'rgba(0, 0, 0, 0)',
+                'volumePaneSize': 'medium',
+                'timezone': 'Europe/Athens',
+                'editorFontsList': ['Roboto'],
+                'paneProperties.topMargin': 15,
+                'paneProperties.bottomMargin': 5,
+                'mainSeriesProperties.visible': true,
+                'mainSeriesProperties.candleStyle.upColor': '#2E71F0',
+                'mainSeriesProperties.candleStyle.downColor': '#FD2A47',
+                'mainSeriesProperties.candleStyle.drawWick': true,
+                'mainSeriesProperties.candleStyle.drawBorder': true,
+                'mainSeriesProperties.candleStyle.borderColor': '#378658',
+                'mainSeriesProperties.candleStyle.borderUpColor': '#2E71F0',
+                'mainSeriesProperties.candleStyle.borderDownColor': '#FD2A47',
+                'mainSeriesProperties.candleStyle.wickUpColor': '#2E71F0',
+                'mainSeriesProperties.candleStyle.wickDownColor': '#FD2A47',
+                'mainSeriesProperties.candleStyle.barColorsOnPrevClose': false,
+                'paneProperties.background': '#ffffff',
+                'scalesProperties.backgroundColor': '#ffffff',
+                'mainSeriesProperties.lineStyle.color': '#2E71F0',
+                'mainSeriesProperties.lineStyle.linestyle': 0,
+                'mainSeriesProperties.lineStyle.linewidth': 1,
+                'mainSeriesProperties.lineStyle.priceSource': 'close',
+                'paneProperties.legendProperties.showStudyArguments': true,
+                'paneProperties.legendProperties.showStudyTitles': true,
+                'paneProperties.legendProperties.showStudyValues': true,
+                'paneProperties.legendProperties.showSeriesTitle': true,
+                'paneProperties.legendProperties.showSeriesOHLC': true,
+                'mainSeriesProperties.areaStyle.color1': '#2E71F0',
+                'mainSeriesProperties.areaStyle.color2': '#01F6F5',
+                'mainSeriesProperties.areaStyle.linecolor': '#2E71F0',
+                'mainSeriesProperties.areaStyle.linestyle': 0,
+                'mainSeriesProperties.areaStyle.linewidth': 1,
+                'mainSeriesProperties.areaStyle.priceSource': 'close',
+            },
+            debug: false,
+            time_frames: [
+                { text: '3y', resolution: '1M' },
+                { text: '1d', resolution: '5' },
+            ],
+            loading_screen: {
+                backgroundColor: '#ffffff',
+            },
+            charts_storage_url: 'http://saveload.tradingview.com',
+            client_id: 'tradingview.com',
+            user_id: 'public_user',
+            studies: [
+                'Volume@tv-basicstudies',
+            ],
+            favorites: {
+                intervals: ['1', '5', '15', '30', '60', '4h', '1D', '3D'],
+                chartTypes: [],
+            },
+        });
+
+        if ('KunaChartHeader' in window) {
+            var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
+                symbol: 'btcuah',
+                baseAsset: 'BTC',
+                quoteAsset: 'UAH',
+                usdRate: 0.031,
+                pricePrecision: 0,
+                volumePrecision: 5,
+            });
+        }
+    };
+
+    window.addEventListener('DOMContentLoaded', initOnReady, false);
 </script>
 
 </body>

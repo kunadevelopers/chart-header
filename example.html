@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Kuna Chart Header example</title>
     <link href="css/kch-style.css" rel="stylesheet" media="all" />
+
+    <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
     <script src="dist/kuna-chart-header.js"></script>
 </head>
 <body>
@@ -27,28 +29,24 @@
 </style>
 
 <script>
+    const symbol = 'btcuah';
+    window.pusher = new Pusher('4b6a8b2c758be4e58868', {
+        encrypted: true,
+        wsHost: 'pusher.kuna.io',
+        wsPort: '443',
+        wssPort: '443',
+        enabledTransports: ['ws', 'flash'],
+    });
+
     var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
+        symbol: 'btcuah',
         baseAsset: 'BTC',
         quoteAsset: 'UAH',
 
-        lastPrice: 3703928,
         usdRate: 0.031,
-
         pricePrecision: 0,
         volumePrecision: 5,
-
-        high: 3923400,
-        low: 3600000,
-
-        volume24h: 24.0281,
-        change24h: -0.0312,
     });
-
-    setInterval(() => {
-        // chartHeader.setData({
-        //     lastPrice: 280000 + Math.random() * 50000,
-        // });
-    }, 1000);
 </script>
 
 </body>
