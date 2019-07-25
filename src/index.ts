@@ -1,21 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { configure } from 'mobx';
-
-import ChartHeaderComponent from './ChartHeaderComponent';
 import KCHController, { KCHOption } from './kchController';
+import ChartHeaderElement from './ChartHeaderElement';
 
 export function create(
     containerSelector: string, option: KCHOption): KCHController {
     configure({ enforceActions: 'observed' });
 
-    const element = document.querySelector(containerSelector);
-    const kchStore = new KCHController(option);
+    const rootElement = document.querySelector(containerSelector);
+    if (!rootElement) {
+        throw new Error(`Element "${containerSelector}" not found`);
+    }
 
-    ReactDOM.render(
-        <ChartHeaderComponent kchStore={kchStore} />,
-        element,
-    );
+    const kchStore = new KCHController(option);
+    new ChartHeaderElement(rootElement, kchStore);
 
     return kchStore;
 }

@@ -1,5 +1,5 @@
 import { Pusher } from 'pusher-js';
-import { observable, set, action, runInAction } from 'mobx';
+import { observable, computed, set, action, runInAction } from 'mobx';
 
 export type KCHOption = {
     symbol?: string;
@@ -62,6 +62,11 @@ export default class KCHController implements mobx.IKCHSStore {
             this.pusher = (window as any).pusher;
             this.startTracking();
         }
+    }
+
+    @computed
+    public get isPositive(): boolean {
+        return this.lastPrice > 0;
     }
 
     @action

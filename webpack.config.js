@@ -14,7 +14,7 @@ module.exports = {
     context: path.resolve(process.cwd(), 'src'),
 
     entry: {
-        'kuna-chart-header': './index.tsx',
+        'kuna-chart-header': './index.ts',
     },
     output: {
         path: path.resolve(__dirname, isLib ? 'lib' : 'dist'),
@@ -24,13 +24,13 @@ module.exports = {
         umdNamedDefine: true,
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+        extensions: ['.ts', '.js', '.json'],
     },
     plugins: [],
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.ts?$/,
                 loader: 'awesome-typescript-loader',
                 exclude: /node_modules/,
                 query: {

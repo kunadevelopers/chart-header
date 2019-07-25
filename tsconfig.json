@@ -6,11 +6,11 @@
         "allowSyntheticDefaultImports": true,
         "preserveConstEnums": true,
         "esModuleInterop": true,
-        "jsx": "react",
         "module": "commonjs",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "outDir": "./dist",
+        "rootDir": "./src",
 
         "target": "es5",
         "lib": [
