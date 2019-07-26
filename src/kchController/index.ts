@@ -66,7 +66,7 @@ export default class KCHController implements mobx.IKCHSStore {
 
     @computed
     public get isPositive(): boolean {
-        return this.lastPrice > 0;
+        return this.change24h > 0;
     }
 
     @action
