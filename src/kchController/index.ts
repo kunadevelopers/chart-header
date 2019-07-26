@@ -62,6 +62,9 @@ export default class KCHController implements mobx.IKCHSStore {
             this.pusher = (window as any).pusher;
             this.startTracking();
         }
+
+        this.fetchUsdRates()
+            .catch((error: Error) => console.error(error));
     }
 
     @computed
@@ -108,6 +111,29 @@ export default class KCHController implements mobx.IKCHSStore {
                 this.change24h = (lastPrice - openPrice) / openPrice;
             }
         });
+    }
+
+    @action
+    protected async fetchUsdRates(): Promise<void> {
+        if (!this.quoteAsset) {
+            return;
+        }
+
+        const asset = this.quoteAsset.toLocaleLowerCase();
+
+        const response = await fetch('https://api.kuna.io/v3/exchange-rates');
+        const data: any[] = await response.json();
+
+        const rateBlock = data.find((e) => e.currency === asset);
+        if (rateBlock) {
+            runInAction(() => {
+                this.usdRate = rateBlock.usd;
+            });
+        } else {
+            runInAction(() => {
+                this.usdRate = 0;
+            });
+        }
     }
 
     protected startTracking() {

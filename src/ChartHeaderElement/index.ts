@@ -136,8 +136,11 @@ export default class ChartHeaderElement {
                 return;
             }
 
-            const value = new BigNumber(this.store.change24h).times(100).toFormat(2) + '%';
-            this.setUnitValue(this.changeUnit, value, this.store.isPositive ? 'up' : 'down');
+            const change24 = new BigNumber(this.store.change24h).times(100);
+            const prefix = change24.isZero() ? '' : change24.isPositive() ? '+' : '-';
+            const value = change24.abs().toFormat(2) + '%';
+
+            this.setUnitValue(this.changeUnit, prefix + value, this.store.isPositive ? 'up' : 'down');
         });
 
         // High/Low values
