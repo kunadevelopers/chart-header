@@ -71,6 +71,7 @@
 .kch-unit-title {
     text-align: right;
     font-size: 10px;
+    font-weight: 500;
     color: #93a9c3;
     margin-bottom: 3px;
 }
@@ -80,7 +81,7 @@
 }
 
 .kch-value-up {
-    color: rgb(34, 207, 145);
+    color: #2E71F0;
 }
 
 .kch-value-down {
