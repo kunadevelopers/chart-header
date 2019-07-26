@@ -66,6 +66,8 @@
             container_id: 'kuna-chart-container',
             locale: 'ru',
 
+            timezone: 'Europe/Athens',
+
             datafeed: new KunaTW.KunaDatafeeds('https://api.kuna.io/v3/tv', 10000),
             library_path: 'charting_library/',
             toolbar_bg: 'rgba(255, 255, 255, 0.4)',
@@ -88,7 +90,6 @@
                 'mainSeriesProperties.style': 1,
                 'symbolWatermarkProperties.color': 'rgba(0, 0, 0, 0)',
                 'volumePaneSize': 'medium',
-                'timezone': 'Europe/Athens',
                 'editorFontsList': ['Roboto'],
                 'paneProperties.topMargin': 15,
                 'paneProperties.bottomMargin': 5,
