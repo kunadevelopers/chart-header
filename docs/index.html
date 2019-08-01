@@ -46,8 +46,33 @@
 
 
 <script>
-    function initOnReady() {
-        const symbol = 'btcuah';
+
+    function getUrlParams(search) {
+        let hashes = search.slice(search.indexOf('?') + 1).split('&');
+        let params = {};
+        hashes.map(hash => {
+            let [key, val] = hash.split('=');
+            params[key] = decodeURIComponent(val);
+        });
+
+        return params
+    }
+
+    async function initOnReady() {
+        let symbol = 'btcuah';
+        const search = getUrlParams(document.location.search);
+        if (search) {
+            symbol = search['symbol'] || 'btcuah';
+        }
+
+        const resp = await fetch('https://api.kuna.io/v3/markets');
+        const marketList = await resp.json();
+        const market = marketList.find((m) => m.id === symbol);
+
+        if (!market) {
+            return;
+        }
+
         window.pusher = new Pusher('4b6a8b2c758be4e58868', {
             encrypted: true,
             wsHost: 'pusher.kuna.io',
@@ -56,12 +81,12 @@
             enabledTransports: ['ws', 'flash'],
         });
 
-        window.pusher.subscribe('market-' + symbol + '-global');
+        window.pusher.subscribe('market-' + market.id + '-global');
 
         var widget = new TradingView.widget({
             fullscreen: false,
             autosize: true,
-            symbol: symbol,
+            symbol: market.id,
             interval: '60',
             container_id: 'kuna-chart-container',
             locale: 'ru',
@@ -139,8 +164,8 @@
             },
             debug: false,
             time_frames: [
-                { text: '3y', resolution: '1M' },
-                { text: '1d', resolution: '5' },
+                {text: '3y', resolution: '1M'},
+                {text: '1d', resolution: '5'},
             ],
             loading_screen: {
                 backgroundColor: '#F5F7F8',
@@ -159,10 +184,10 @@
 
         if ('KunaChartHeader' in window) {
             var chartHeader = KunaChartHeader.create('#kuna-chart-header', {
-                symbol: 'dashuah',
-                baseAsset: 'DASH',
-                quoteAsset: 'UAH',
-                pricePrecision: 0,
+                symbol: market.id,
+                baseAsset: market.base_unit.toUpperCase(),
+                quoteAsset: market.quote_unit.toUpperCase(),
+                pricePrecision: market.quote_precision,
                 volumePrecision: 2,
             });
         }
