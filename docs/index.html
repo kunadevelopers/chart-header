@@ -55,7 +55,7 @@
             params[key] = decodeURIComponent(val);
         });
 
-        return params
+        return params;
     }
 
     async function initOnReady() {
@@ -106,10 +106,11 @@
                 'timeframes_toolbar',
                 'header_fullscreen_button',
                 'volume_force_overlay',
+                'save_chart_properties_to_local_storage',
+                'header_saveload',
             ],
             enabled_features: [
                 'move_logo_to_main_pane',
-                'save_chart_properties_to_local_storage',
             ],
             overrides: {
                 'mainSeriesProperties.style': 1,
@@ -159,13 +160,13 @@
                 'mainSeriesProperties.areaStyle.priceSource': 'close',
             },
             studies_overrides: {
-                "volume.volume.color.0": "#FD2A47",
-                "volume.volume.color.1": "#2E71F0",
+                'volume.volume.color.0': '#FD2A47',
+                'volume.volume.color.1': '#2E71F0',
             },
             debug: false,
             time_frames: [
-                {text: '3y', resolution: '1M'},
-                {text: '1d', resolution: '5'},
+                { text: '3y', resolution: '1M' },
+                { text: '1d', resolution: '5' },
             ],
             loading_screen: {
                 backgroundColor: '#F5F7F8',
@@ -180,6 +181,42 @@
                 intervals: ['1', '5', '15', '30', '60', '240', '1D'],
                 chartTypes: [],
             },
+        });
+
+        widget.onChartReady(function() {
+            const CHART_PARAM_STORAGE = 'myAutosavedChart';
+            const savedStr = localStorage.getItem(CHART_PARAM_STORAGE);
+
+            if (savedStr) {
+                try {
+                    const saved = JSON.parse(savedStr);
+                    console.log(saved);
+                    if (!saved) {
+                        return;
+                    }
+
+                    if (saved.content) {
+                        widget.load(saved.content);
+                    }
+
+                    if (saved.studyTemplate) {
+                        widget.chart().applyStudyTemplate(saved.studyTemplate);
+                    }
+                } catch (e) {}
+
+                widget.setSymbol(symbol, '60', () => {});
+            }
+
+            widget.subscribe('onAutoSaveNeeded', function() {
+                widget.save(function(savedContent) {
+                    const savedTemplate = widget.activeChart().createStudyTemplate({ saveInterval: true });
+
+                    localStorage.setItem(CHART_PARAM_STORAGE, JSON.stringify({
+                        studyTemplate: savedTemplate,
+                        content: savedContent,
+                    }));
+                });
+            });
         });
 
         if ('KunaChartHeader' in window) {
