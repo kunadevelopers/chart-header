@@ -202,9 +202,13 @@
                     if (saved.studyTemplate) {
                         widget.chart().applyStudyTemplate(saved.studyTemplate);
                     }
-                } catch (e) {}
 
-                widget.setSymbol(symbol, '60', () => {});
+                    widget.setSymbol(
+                        symbol,
+                        saved.studyTemplate ? saved.studyTemplate.interval : '60',
+                        () => {},
+                    );
+                } catch (e) {}
             }
 
             widget.subscribe('onAutoSaveNeeded', function() {
