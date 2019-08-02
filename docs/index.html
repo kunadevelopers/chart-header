@@ -200,14 +200,12 @@
                     }
 
                     if (saved.studyTemplate) {
-                        widget.chart().applyStudyTemplate(saved.studyTemplate);
+                        widget.setSymbol(
+                            symbol,
+                            saved.studyTemplate ? saved.studyTemplate.interval : '60',
+                            () => {},
+                        );
                     }
-
-                    widget.setSymbol(
-                        symbol,
-                        saved.studyTemplate ? saved.studyTemplate.interval : '60',
-                        () => {},
-                    );
                 } catch (e) {}
             }
 
